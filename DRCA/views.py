@@ -13,7 +13,7 @@ def curso(request):
     return render(request, 'cursos.html', {'table': table})
 
 
-def aluno(request):
+def aluno(request, id):
     table = AlunoTable(Aluno.objects.all())
     RequestConfig(request).configure(table)
     return render(request, 'alunos.html', {'table': table})

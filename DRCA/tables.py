@@ -1,10 +1,11 @@
 import django_tables2 as tables
+from django.core.urlresolvers import reverse
 from django_tables2.utils import A
 from DRCA.models import *
 
 
 class CursoTable(tables.Table):
-    nome_curso = tables.LinkColumn('curso', args=[A('pk')])
+    nome_curso = tables.LinkColumn('aluno', args=reverse('DRCA.views.aluno', args=(id,)))
     class Meta:
         model = Curso
         attrs = {"class": "paleblue"}
