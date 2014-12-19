@@ -13,7 +13,8 @@ def curso(request):
     return render(request, 'cursos.html', {'table': table})
 
 
-def aluno(request, id):
+def aluno(request, aluno_id):
+    id = request.GET.get('id')
     table = AlunoTable(Aluno.objects.all())
     RequestConfig(request).configure(table)
     return render(request, 'alunos.html', {'table': table})
