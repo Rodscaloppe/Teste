@@ -1,3 +1,4 @@
+{% load render_table from django_tables2 %}
 <!doctype html>
 <html>
     <head>
@@ -6,12 +7,9 @@
     <body>
         <center>
             <font face="Helvetica-Light, Arial">
-        <h1>Bem-vindo ao sistema de matriculas</h1>
+        <h1>Lista de departamentos</h1>
                 <br>
-                <a href="departamento">Listar os departamentos</a><br>
-              <p></p>
-
-                </font>
+        {% render_table table %}
         </center>
     </body>
 </html>

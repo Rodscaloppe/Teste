@@ -15,13 +15,24 @@ def index(request):
 def aluno(request):
     return render(request, 'index.html', {})
 
-@api_view(['GET', ])
 def curso(request):
-    departamento_id = request.GET.get('id')
-    #serializer = DisciplineSerializer(disciplines, many=True)
-    table = CursoTable(Curso.objects.all().filter(cod_departamento_id=departamento_id))
-    RequestConfig(request, paginate={"per_page": 25}).configure(table)
-    return render(request, 'cursos.html', {'table': table})
+    departament_id = request.GET.get('id')
+    cursos = CursoTable(Curso.objects.all().filter(cod_departamento_id=departament_id))
+    serializer = CursoSerializer(cursos, many=True)
+    RequestConfig(request).configure(cursos)
+    return render(request, 'cursos.html', {'table': cursos})
+
+def departamento(request):
+    departamentos = DepartamentoTable(Departamento.objects.all())
+    RequestConfig(request).configure(departamentos)
+    return render(request, 'departamentos.html', {'table': departamentos})
+
+def aluno(request):
+    aluno_id = request.GET.get('id')
+    alunos = AlunoTable(Aluno.objects.all().filter(cod_curso_id=aluno_id))
+    serializer = CursoSerializer(alunos, many=True)
+    RequestConfig(request).configure(alunos)
+    return render(request, 'alunos.html', {'table': alunos})
 
 def matricula(request):
     aluno = Aluno.objects.get(id=0)
