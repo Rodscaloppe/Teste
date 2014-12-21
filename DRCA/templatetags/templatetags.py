@@ -22,3 +22,8 @@ def get_nome_aluno(value):
 def get_nome_disciplina(value):
     disciplina = Disciplina.objects.get(id=value)
     return disciplina.nome_disciplina
+
+@register.filter(name='get_cod_disciplina')
+def get_cod_disciplina(value):
+    disciplina = Disciplina.objects.get(id=value)
+    return disciplina.cod_disciplina

@@ -27,31 +27,15 @@ def aluno(request):
 
 def disciplina(request):
     aluno_id = request.GET.get('id')
-    disciplinasCursadas = DisciplinaTable(Disciplinas_cursadas.objects.all().filter(matricula_aluno_id=aluno_id))
-    disciplinas = DisciplinaTable(Disciplina.objects.all().filter(cod_curso_id=aluno_id))
+    #Gerando a tabela de disciplinas já matriculadas.
+    disciplinasCursadas = DisciplinaCursadaTable(Disciplinas_cursadas.objects.all().filter(matricula_aluno_id=aluno_id))
+
+    #iniciando geração de matriculas.
+    disciplinasCursadas_id = Disciplinas_cursadas.objects.filter(matricula_aluno_id=aluno_id)
+
+    disciplinas = DisciplinaTable(Disciplina.objects.all().exclude(id__in=disciplinasCursadas_id))
+
+    #django-tables: geração das tabelas
     RequestConfig(request).configure(disciplinasCursadas)
     RequestConfig(request).configure(disciplinas)
     return render(request, 'disciplinas.html', {'table': disciplinasCursadas, 'table2': disciplinas})
-
-def matricula(request):
-    aluno = Aluno.objects.get(id=0)
-    curso = Curso.objects.get(cod_curso = aluno.cod_curso)
-
-    if curso.tipo_curso == "Graduação":
-        matricular = "ECOM1622"
-
-        disciplina = Disciplina.objects.get(cod_disciplina = matricular)
-        disciplinasCursadas = Disciplinas_cursadas.objects.get(matricula_aluno_id=aluno.matricula_aluno,cod_disciplina_id=matricular)
-
-        #Iniciando matricula
-        if not disciplina.e_oferecida:
-            print("A disciplina não está disponível para matrícula (não oferecida)")
-
-        elif not (aluno.creditos_obrigatorios + aluno.creditos_eletivas) >= disciplina.requisito_credito:
-            print("A disciplina não está disponível para matrícula (créditos insuficientes)")
-
-        elif disciplinasCursadas is None:
-            print("A disciplina não está disponível para matrícula (disciplina cursada)")
-
-        else:
-            Disciplinas_cursadas.create(cod_disciplina_id=matricular, matricula_aluno_id=aluno.matricula_aluno)

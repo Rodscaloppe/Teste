@@ -37,6 +37,21 @@ class DisciplinaTable(tables.Table):
                                        '{% load templatetags%}'
                                        '{{record.id|get_nome_disciplina}}'
                                        '</a>')
+
     class Meta:
         model = Disciplina
         attrs = {"class": "paleblue"}
+
+class DisciplinaCursadaTable(tables.Table):
+    nome_disciplina = tables.TemplateColumn(
+                                       '{% load templatetags%}'
+                                       '{{record.id|get_nome_disciplina}}'
+                                       )
+    cod_disciplina = tables.TemplateColumn(
+                                       '{% load templatetags%}'
+                                       '{{record.id|get_cod_disciplina}}'
+                                       )
+    class Meta:
+        model = Disciplinas_cursadas
+        attrs = {"class": "paleblue"}
+        fields = ('nome_disciplina','cod_disciplina')
