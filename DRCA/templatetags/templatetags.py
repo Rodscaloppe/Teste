@@ -17,3 +17,8 @@ def get_nome_curso(value):
 def get_nome_aluno(value):
     aluno = Aluno.objects.get(id=value)
     return aluno.nome_aluno
+
+@register.filter(name='get_nome_disciplina')
+def get_nome_disciplina(value):
+    disciplina = Disciplina.objects.get(id=value)
+    return disciplina.nome_disciplina

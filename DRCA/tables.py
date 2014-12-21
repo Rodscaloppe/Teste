@@ -31,3 +31,12 @@ class AlunoTable(tables.Table):
     class Meta:
         model = Aluno
         attrs = {"class": "paleblue"}
+
+class DisciplinaTable(tables.Table):
+    nome_disciplina = tables.TemplateColumn('<a href="/drca/disciplina/?id={{record.id}}">'
+                                       '{% load templatetags%}'
+                                       '{{record.id|get_nome_disciplina}}'
+                                       '</a>')
+    class Meta:
+        model = Disciplina
+        attrs = {"class": "paleblue"}

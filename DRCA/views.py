@@ -9,8 +9,8 @@ def aluno(request):
     return render(request, 'index.html', {})
 
 def curso(request):
-    departament_id = request.GET.get('id')
-    cursos = CursoTable(Curso.objects.all().filter(cod_departamento_id=departament_id))
+    departamento_id = request.GET.get('id')
+    cursos = CursoTable(Curso.objects.all().filter(cod_departamento_id=departamento_id))
     RequestConfig(request).configure(cursos)
     return render(request, 'cursos.html', {'table': cursos})
 
@@ -20,10 +20,18 @@ def departamento(request):
     return render(request, 'departamentos.html', {'table': departamentos})
 
 def aluno(request):
-    aluno_id = request.GET.get('id')
-    alunos = AlunoTable(Aluno.objects.all().filter(cod_curso_id=aluno_id))
+    curso_id = request.GET.get('id')
+    alunos = AlunoTable(Aluno.objects.all().filter(cod_curso_id=curso_id))
     RequestConfig(request).configure(alunos)
     return render(request, 'alunos.html', {'table': alunos})
+
+def disciplina(request):
+    aluno_id = request.GET.get('id')
+    disciplinasCursadas = DisciplinaTable(Disciplinas_cursadas.objects.all().filter(matricula_aluno_id=aluno_id))
+    disciplinas = DisciplinaTable(Disciplina.objects.all().filter(cod_curso_id=aluno_id))
+    RequestConfig(request).configure(disciplinasCursadas)
+    RequestConfig(request).configure(disciplinas)
+    return render(request, 'disciplinas.html', {'table': disciplinasCursadas, 'table2': disciplinas})
 
 def matricula(request):
     aluno = Aluno.objects.get(id=0)

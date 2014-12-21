@@ -1,0 +1,21 @@
+{% load render_table from django_tables2 %}
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+    </head>
+    <body>
+        <center>
+            <font face="Helvetica-Light, Arial">
+        <h1>Lista de disciplinas matriculadas</h1>
+                <br>
+        {% render_table table %}
+                <br>
+                <br>
+
+                <h1>Lista de disciplinas disponíveis</h1>
+                <br>
+                {% render_table table2 %}
+        </center>
+    </body>
+</html>
