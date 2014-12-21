@@ -1,13 +1,6 @@
 from django.shortcuts import render
 from DRCA.tables import *
-from DRCA.serializers import *
 from django_tables2 import RequestConfig
-
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
-
 
 def index(request):
     return render(request, 'index.html', {})
@@ -18,7 +11,6 @@ def aluno(request):
 def curso(request):
     departament_id = request.GET.get('id')
     cursos = CursoTable(Curso.objects.all().filter(cod_departamento_id=departament_id))
-    serializer = CursoSerializer(cursos, many=True)
     RequestConfig(request).configure(cursos)
     return render(request, 'cursos.html', {'table': cursos})
 
@@ -30,7 +22,6 @@ def departamento(request):
 def aluno(request):
     aluno_id = request.GET.get('id')
     alunos = AlunoTable(Aluno.objects.all().filter(cod_curso_id=aluno_id))
-    serializer = CursoSerializer(alunos, many=True)
     RequestConfig(request).configure(alunos)
     return render(request, 'alunos.html', {'table': alunos})
 
