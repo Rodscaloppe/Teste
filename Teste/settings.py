@@ -99,3 +99,17 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.XMLRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'DRCA.models.Aluno',
+        'DRCA.models.Curso',
+        'DRCA.models.Departamento',
+        'DRCA.models.Disciplina',
+    ),
+}

@@ -1,24 +1,27 @@
 from django.shortcuts import render
-from django_tables2 import RequestConfig
 from DRCA.tables import *
-from DRCA.models import *
+from DRCA.serializers import *
+from django_tables2 import RequestConfig
+
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
 
 
 def index(request):
     return render(request, 'index.html', {})
 
+def aluno(request):
+    return render(request, 'index.html', {})
 
+@api_view(['GET', ])
 def curso(request):
-    table = CursoTable(Curso.objects.all())
+    departamento_id = request.GET.get('id')
+    #serializer = DisciplineSerializer(disciplines, many=True)
+    table = CursoTable(Curso.objects.all().filter(cod_departamento_id=departamento_id))
     RequestConfig(request, paginate={"per_page": 25}).configure(table)
     return render(request, 'cursos.html', {'table': table})
-
-
-def aluno(request, aluno_id):
-    id = request.GET.get('id')
-    table = AlunoTable(Aluno.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'alunos.html', {'table': table})
 
 def matricula(request):
     aluno = Aluno.objects.get(id=0)

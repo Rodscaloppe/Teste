@@ -1,9 +1,13 @@
-from django.conf.urls import patterns, url
-
+from django.conf.urls import patterns, include, url
+from rest_framework.routers import DefaultRouter
 from DRCA import views
 
-urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
-    url(r'curso/$', views.curso, name='curso'),
-    url(r'^aluno/(?P<id>[0-9]+)/$', views.aluno),
-)
+urlpatterns = patterns(
+    'DRCA.views',
+    url(r'^$', 'index'),
+
+    #api
+    url(r'^curso/$', views.curso,
+    #url(r'^api/disciplina/$', views.disciplina.as_view()),
+    url(r'^aluno/$', views.aluno,
+    )))

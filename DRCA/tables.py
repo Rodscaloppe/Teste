@@ -5,7 +5,7 @@ from DRCA.views import *
 
 
 class CursoTable(tables.Table):
-    nome_curso = tables.LinkColumn('aluno', args=([A('id')]))
+    nome_curso = tables.LinkColumn('aluno', args=([A('departamento_id')]))
     class Meta:
         model = Curso
         attrs = {"class": "paleblue"}
