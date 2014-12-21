@@ -39,3 +39,14 @@ def disciplina(request):
     RequestConfig(request).configure(disciplinasCursadas)
     RequestConfig(request).configure(disciplinas)
     return render(request, 'disciplinas.html', {'table': disciplinasCursadas, 'table2': disciplinas})
+
+def matricula(request):
+    aluno_id = request.GET.get('aluno_id')
+    disciplina_id = request.GET.get('disciplina_id')
+
+    alunos = Aluno.objects.all().filter(id=aluno_id)
+    disciplina_id = Disciplina.objects.all().filter(id=disciplina_id)
+
+
+
+
