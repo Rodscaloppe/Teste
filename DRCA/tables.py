@@ -33,7 +33,7 @@ class AlunoTable(tables.Table):
         attrs = {"class": "paleblue"}
 
 class DisciplinaTable(tables.Table):
-    nome_disciplina = tables.TemplateColumn('<a href="/drca/matricula/?id={{record.id}}">'
+    nome_disciplina = tables.TemplateColumn('<a href="/drca/matricula/?id={{record.id}}&aluno={{record.aluno_id}}">'
                                        '{% load templatetags%}'
                                        '{{record.id|get_nome_disciplina}}'
                                        '</a>')

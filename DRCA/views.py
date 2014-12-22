@@ -38,7 +38,7 @@ def disciplina(request):
     #django-tables: geração das tabelas
     RequestConfig(request).configure(disciplinasCursadas)
     RequestConfig(request).configure(disciplinas)
-    return render(request, 'disciplinas.html', {'table': disciplinasCursadas, 'table2': disciplinas})
+    return render(request, 'disciplinas.html', {'table': disciplinasCursadas, 'table2': disciplinas, 'aluno_id:': aluno_id})
 
 def matricula(request):
     aluno_id = request.GET.get('aluno_id')
